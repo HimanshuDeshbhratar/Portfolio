@@ -11,7 +11,6 @@ export const profile = {
   },
 };
 
-/** Public repositories on GitHub (excluding forks). */
 export const projectCount = 18;
 
 export const skills = [
@@ -65,7 +64,6 @@ export const projects = [
   },
 ];
 
-/** Strongest additional repos — full list lives on GitHub (`projectCount`). */
 export const additionalProjects = [
   ["BookVerse", "https://github.com/HimanshuDeshbhratar/BookVerse"],
   ["Finance Visualizer", "https://github.com/HimanshuDeshbhratar/Finance-Visualizer"],
@@ -99,5 +97,7 @@ export function demoAnswer(question: string) {
     return "He has solved 550+ DSA problems across LeetCode and Codeforces, has a Codeforces rating of 1253, and has earned 3+ Player of the Match awards in regional tournaments.";
   if (q.includes("project") || q.includes("github"))
     return `Himanshu has ${projectCount} public projects on GitHub. Featured work includes Moodify and the Real-Time Vehicle Telemetry Dashboard, plus BookVerse, Finance Visualizer, FuelEU VMS, Store Rating App, and more.`;
+  if (q.includes("contact") || q.includes("email") || q.includes("hire"))
+    return `Reach Himanshu at ${profile.email} or ${profile.phone}. LinkedIn: ${profile.socials.linkedin}`;
   return "I can help with Himanshu’s experience, projects, skills, education, and achievements. Try asking about People Tech Group, Moodify, or the vehicle telemetry dashboard.";
 }

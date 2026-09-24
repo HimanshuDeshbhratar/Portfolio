@@ -1,9 +1,59 @@
 "use client";
-import { Menu, X, Sparkles } from "lucide-react";
+
+import { ArrowUpRight, Menu, X } from "lucide-react";
 import { useState } from "react";
-const links = ["Home", "About", "Experience", "Projects", "Skills", "Achievements", "Contact"];
+
+const mid = [
+  { label: "WORK", id: "projects" },
+  { label: "ABOUT", id: "about" },
+  { label: "JOURNAL", id: "experience" },
+];
+
 export function Nav({ onChat }: { onChat: () => void }) {
- const [open, setOpen] = useState(false);
- const jump = (label: string) => { document.getElementById(label.toLowerCase())?.scrollIntoView({ behavior: "smooth" }); setOpen(false); };
- return <header className="nav"><a href="#home" className="brand">HIMANSHU<span>.dev</span></a><nav className={open ? "links open" : "links"}>{links.map(l => <button key={l} onClick={() => jump(l)}>{l}</button>)}<button className="chat-mini" onClick={onChat}><Sparkles size={15}/> Ask Himanshu AI</button></nav><button className="menu" aria-label="Toggle navigation" onClick={() => setOpen(!open)}>{open ? <X/> : <Menu/>}</button></header>;
+  const [open, setOpen] = useState(false);
+  const jump = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    setOpen(false);
+  };
+
+  return (
+    <header className="nav mist-nav">
+      <a href="#home" className="brand-hd">
+        H. D.
+      </a>
+
+      <nav className={open ? "links mid open" : "links mid"}>
+        {mid.map((l) => (
+          <button key={l.id} type="button" onClick={() => jump(l.id)}>
+            {l.label}
+          </button>
+        ))}
+        <button type="button" className="nav-contact mobile-only" onClick={() => jump("contact")}>
+          CONTACT
+        </button>
+        <button type="button" className="chat-mini mobile-only" onClick={onChat}>
+          Ask AI
+        </button>
+      </nav>
+
+      <div className="nav-right">
+        <button type="button" className="nav-contact" onClick={() => jump("contact")}>
+          CONTACT
+        </button>
+        <a
+          className="nav-arrow"
+          href="https://drive.google.com/file/d/1pvqHvm4BlLUaInarA3f-QC-0_oHz_jGR/view?usp=sharing"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Open resume"
+        >
+          <ArrowUpRight size={16} />
+        </a>
+      </div>
+
+      <button className="menu" aria-label="Toggle navigation" type="button" onClick={() => setOpen(!open)}>
+        {open ? <X /> : <Menu />}
+      </button>
+    </header>
+  );
 }
