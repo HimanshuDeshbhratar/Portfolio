@@ -2,6 +2,7 @@
 
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { useState } from "react";
+import { profile } from "@/lib/portfolioData";
 
 const mid = [
   { label: "WORK", id: "projects" },
@@ -39,7 +40,7 @@ export function Nav() {
         </button>
         <a
           className="nav-arrow"
-          href="https://drive.google.com/file/d/1pvqHvm4BlLUaInarA3f-QC-0_oHz_jGR/view?usp=sharing"
+          href={profile.resumeUrl}
           target="_blank"
           rel="noreferrer"
           aria-label="Open resume"

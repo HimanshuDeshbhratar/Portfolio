@@ -3,7 +3,7 @@ export const profile = {
   email: "himanshudeshbhratar9@gmail.com",
   phone: "+91 7038619668",
   location: "India",
-  resumeUrl: "https://drive.google.com/file/d/1pvqHvm4BlLUaInarA3f-QC-0_oHz_jGR/view?usp=sharing",
+  resumeUrl: "https://drive.google.com/file/d/1ly9s_EoEeMdQlDuWkQKBUWrx00zTBXkp/view?usp=drive_link",
   socials: {
     github: "https://github.com/HimanshuDeshbhratar",
     linkedin: "https://www.linkedin.com/in/himanshu-deshbhratar-799bb42a8/",
