@@ -9,7 +9,7 @@ const mid = [
   { label: "JOURNAL", id: "experience" },
 ];
 
-export function Nav({ onChat }: { onChat: () => void }) {
+export function Nav() {
   const [open, setOpen] = useState(false);
   const jump = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -30,9 +30,6 @@ export function Nav({ onChat }: { onChat: () => void }) {
         ))}
         <button type="button" className="nav-contact mobile-only" onClick={() => jump("contact")}>
           CONTACT
-        </button>
-        <button type="button" className="chat-mini mobile-only" onClick={onChat}>
-          Ask AI
         </button>
       </nav>
 

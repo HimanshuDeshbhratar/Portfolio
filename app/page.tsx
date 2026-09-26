@@ -6,26 +6,20 @@ import {
   Code2,
   FileText,
   Github,
-  GraduationCap,
   Linkedin,
   Mail,
   MapPin,
   Phone,
   Radio,
   Send,
-  Trophy,
   Zap,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Nav } from "@/components/layout/Nav";
-import { Chat, ChatLauncher } from "@/components/chat/Chat";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import {
-  additionalProjects,
-  education,
-  experience,
+  experiences,
   profile,
-  projectCount,
   projects,
   skills,
 } from "@/lib/portfolioData";
@@ -63,9 +57,8 @@ const techIcons: Record<string, TechIcon> = {
   WebSockets: { slug: "socketio", invert: true },
 };
 
-const SectionTitle = ({ label, title, accent }: { label: string; title: string; accent?: string }) => (
+const SectionTitle = ({ title, accent }: { title: string; accent?: string }) => (
   <div className="section-title">
-    <p>{label}</p>
     <h2>
       {title} {accent && <span>{accent}</span>}
     </h2>
@@ -96,55 +89,7 @@ const TechTags = ({ items }: { items: readonly string[] }) => (
   </div>
 );
 
-function MoodVisual() {
-  return (
-    <div className="mood-visual">
-      <div className="flow">
-        <b>FACE</b>
-        <span>+</span>
-        <b>WEATHER</b>
-        <i>→</i>
-        <b className="accent-box">LOGIC</b>
-        <i>→</i>
-        <b>SPOTIFY</b>
-      </div>
-      <div className="tracks">
-        <span>♪ Focus Flow</span>
-        <span>♪ Good Day</span>
-        <span>~ Ambient Drive</span>
-      </div>
-    </div>
-  );
-}
-
-function Telemetry() {
-  return (
-    <div className="telemetry">
-      <div className="live">
-        <i /> LIVE <small>UI DEMO DATA</small>
-      </div>
-      <div className="gauges">
-        {[
-          ["Engine RPM", "2450"],
-          ["Speed", "88 km/h"],
-          ["Coolant", "92°C"],
-          ["Fuel", "62%"],
-        ].map(([l, v]) => (
-          <div key={l}>
-            <small>{l}</small>
-            <b>{v}</b>
-          </div>
-        ))}
-      </div>
-      <svg viewBox="0 0 300 70" className="chart">
-        <path d="M0 57 C20 49 27 58 45 41 S75 53 95 25 S126 45 151 32 S180 35 196 16 S235 40 260 20 S285 30 300 9" />
-      </svg>
-    </div>
-  );
-}
-
 export default function Home() {
-  const [chat, setChat] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
 
   useEffect(() => {
@@ -155,7 +100,7 @@ export default function Home() {
     <>
       <ForestScene reduceMotion={reduceMotion} />
       <main>
-        <Nav onChat={() => setChat(true)} />
+        <Nav />
         <section id="home" className="hero mist-hero">
           <div className="hero-center">
             <ScrollReveal>
@@ -166,9 +111,7 @@ export default function Home() {
             </ScrollReveal>
             <ScrollReveal delay={0.18}>
               <hr className="hero-rule" />
-              <p className="hero-tagline">
-                Software engineer. Problem solver. Creator of quiet, impactful digital experiences.
-              </p>
+              <p className="hero-tagline">Software Engineer | Backend-leaning dev building AI Systems</p>
             </ScrollReveal>
             <ScrollReveal delay={0.26}>
               <div className="hero-cta">
@@ -184,93 +127,53 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="about">
+        <section id="about" className="about-tight">
           <ScrollReveal>
-            <SectionTitle label="// ABOUT ME" title="Who I" accent="Am" />
+            <SectionTitle title="About" accent="Me" />
+            <p className="lead about-lead">
+              Holaa amigos, I&apos;m Himanshu, B.Tech grad from NIT Rourkela building software for real-time vehicle
+              systems and full-stack applications. I&apos;m drawn to backend systems, AI infras &amp; just digging out
+              more of my interests
+            </p>
           </ScrollReveal>
-          <div className="about-grid">
-            <ScrollReveal>
-              <p className="lead">
-                An engineering student at NIT Rourkela with experience building software for real-time vehicle systems
-                and full-stack applications. I&apos;m interested in backend systems, real-time communication, and
-                intelligent applications.
-              </p>
-              <div className="metrics small-metrics">
-                <div>
-                  <b>{projectCount}</b>
-                  <span>Public Projects</span>
-                </div>
-                <div>
-                  <b>1</b>
-                  <span>Internship</span>
-                </div>
-                <div>
-                  <b>550+</b>
-                  <span>DSA Problems</span>
-                </div>
-              </div>
-            </ScrollReveal>
-            <ScrollReveal delay={0.1}>
-              <article className="education-card">
-                <p className="eyebrow">EDUCATION</p>
-                {education.map(([name, detail]) => (
-                  <div className="edu" key={name}>
-                    <GraduationCap size={18} />
-                    <div>
-                      <b>{name}</b>
-                      <small>{detail}</small>
-                    </div>
-                  </div>
-                ))}
-              </article>
-            </ScrollReveal>
-          </div>
         </section>
 
         <section id="experience">
           <ScrollReveal>
-            <SectionTitle label="// EXPERIENCE" title="Execution" accent="History" />
+            <SectionTitle title="Experience" />
           </ScrollReveal>
-          <ScrollReveal>
-            <div className="timeline">
-              <div className="year">2025</div>
-              <article className="experience-card">
-                <div>
-                  <p className="company">{experience.company}</p>
-                  <h3>{experience.role}</h3>
-                  <p className="muted">
-                    {experience.location} · {experience.date}
-                  </p>
-                  <p>{experience.text}</p>
-                  <TechTags items={experience.tech} />
-                  <div className="impact">
-                    <Zap size={17} /> 5 ms average latency reduction
+          {experiences.map((job) => (
+            <ScrollReveal key={job.company}>
+              <div className="timeline">
+                <div className="year">{job.year}</div>
+                <article className="experience-card">
+                  <div>
+                    <p className="company">{job.company}</p>
+                    <h3>{job.role}</h3>
+                    <p className="muted">
+                      {job.location} · {job.date}
+                    </p>
+                    <p>{job.text}</p>
+                    <TechTags items={job.tech} />
+                    {job.company === "People Tech Group" && (
+                      <div className="impact">
+                        <Zap size={17} /> 5 ms average latency reduction
+                      </div>
+                    )}
                   </div>
-                </div>
-              </article>
-            </div>
-          </ScrollReveal>
-          <div className="milestones">
-            {[
-              ["2022", "NIT Rourkela"],
-              ["2022", "Sarwashree Junior College"],
-              ["2020", "Saraswat Central Public School"],
-            ].map(([year, name]) => (
-              <div key={name}>
-                <b>{year}</b>
-                <span>{name}</span>
+                </article>
               </div>
-            ))}
-          </div>
+            </ScrollReveal>
+          ))}
         </section>
 
         <section id="projects">
           <ScrollReveal>
-            <SectionTitle label="// PROJECTS" title="Deployed" accent="Systems" />
+            <SectionTitle title="Projects" />
           </ScrollReveal>
-          <div className="project-grid">
-            {projects.map((project, i) => (
-              <ScrollReveal key={project.title} delay={i * 0.1}>
+          <div className="project-list">
+            {projects.map((project) => (
+              <ScrollReveal key={project.title}>
                 <article className="project-card">
                   <div className="project-meta">
                     <p>{project.date}</p>
@@ -279,7 +182,6 @@ export default function Home() {
                   <h3>{project.title}</h3>
                   <h4>{project.subtitle}</h4>
                   <p>{project.description}</p>
-                  {i === 0 ? <MoodVisual /> : <Telemetry />}
                   <TechTags items={project.tech} />
                   <ul>
                     {project.highlights.map((x) => (
@@ -304,31 +206,11 @@ export default function Home() {
               </ScrollReveal>
             ))}
           </div>
-          <ScrollReveal>
-            <div className="other-projects">
-              <div>
-                <p className="eyebrow">MORE FROM GITHUB</p>
-                <h3>{projectCount} public projects total</h3>
-                <p className="muted other-projects-note">Highlighted picks below — full list on GitHub.</p>
-              </div>
-              <div className="other-project-links">
-                {additionalProjects.map(([name, url]) => (
-                  <a href={url} target="_blank" rel="noreferrer" key={name}>
-                    {name}
-                    <ArrowUpRight size={14} />
-                  </a>
-                ))}
-              </div>
-              <a className="github-profile" href={profile.socials.github} target="_blank" rel="noreferrer">
-                <Github size={16} /> View all on GitHub
-              </a>
-            </div>
-          </ScrollReveal>
         </section>
 
         <section id="skills">
           <ScrollReveal>
-            <SectionTitle label="// TECH STACK" title="Skills" />
+            <SectionTitle title="Skills" />
           </ScrollReveal>
           <div className="skills-grid">
             {skills.map(([name, list], i) => (
@@ -347,31 +229,9 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="achievements">
-          <ScrollReveal>
-            <SectionTitle label="// ACHIEVEMENTS" title="Achievements" />
-          </ScrollReveal>
-          <div className="achievement-grid">
-            {[
-              ["550+", "DSA Problems Solved", "Across LeetCode and Codeforces"],
-              ["1253", "Codeforces Rating", "Active programming-contest participant"],
-              ["3+", "Player of the Match Awards", "All-rounder in regional tournaments"],
-            ].map(([n, t, d]) => (
-              <ScrollReveal key={t}>
-                <article className="achievement">
-                  <Trophy size={21} />
-                  <b>{n}</b>
-                  <h3>{t}</h3>
-                  <p>{d}</p>
-                </article>
-              </ScrollReveal>
-            ))}
-          </div>
-        </section>
-
         <section id="contact" className="contact">
           <ScrollReveal>
-            <SectionTitle label="// CONTACT" title="Let's Build Something" accent="Great" />
+            <SectionTitle title="Let's Build Something" accent="Great" />
             <p className="lead">Open to opportunities, interesting projects, and software engineering discussions.</p>
             <div className="contact-grid">
               <a href={`mailto:${profile.email}`}>
@@ -412,10 +272,8 @@ export default function Home() {
 
         <footer>
           © 2026 Himanshu Deshbhratar. All rights reserved.{" "}
-          <span>Built with Next.js, Three.js & curiosity.</span>
+          <span>Built with Next.js & curiosity.</span>
         </footer>
-        <Chat open={chat} onClose={() => setChat(false)} />
-        <ChatLauncher onClick={() => setChat(true)} />
       </main>
     </>
   );
